@@ -13,10 +13,18 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+
+        $this->call(RolesAndPermissionsSeeder::class);
+
         //Usuarios: 3 admin, 8 médicos, 12 asistentes = 23 total
         $admins    = User::factory(3)->admin()->create();
+        $admins->each(fn($u) => $u->assignRole('admin'));
+
         $medicos   = User::factory(8)->medico()->create();
+        $medicos->each(fn($u) => $u->assignRole('medico'));
+
         $asistentes = User::factory(12)->asistente()->create();
+        $asistentes->each(fn($u) => $u->assignRole('asistente'));
 
         //Horarios para cada médico con 2-4 bloques por semana
         foreach ($medicos as $medico) {
