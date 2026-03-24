@@ -3,6 +3,7 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Appointment;
+use Carbon\Carbon;
 use Filament\Support\RawJs;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
@@ -32,28 +33,34 @@ class CitasChart extends ChartWidget
         ];
     }
 
+
     protected function getData(): array
     {
-        $dates = [];
-        $counts = [];
-
         $citasDiarias = Appointment::select(
             DB::raw('DATE(appointment_date) as date'),
             DB::raw('count(*) as total')
-        )->groupBy('date')->orderBy('date', 'asc')->limit(7)->pluck('total', 'date');
+        )
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->limit(30)
+            ->get();
 
+        $labels = $citasDiarias->map(function ($item) {
+            return Carbon::parse($item->date)->locale('es')->isoFormat('D MMM');
+        })->toArray();
 
+        $data = $citasDiarias->pluck('total')->toArray();
 
         return [
             'datasets' => [
                 [
                     'label' => 'Citas progradas esta semana',
-                    'data' => $citasDiarias->values()->toArray(),
+                    'data' => $data,
                     'fill' => 'origin',
                     'tension' => 0.4
                 ],
             ],
-            'labels' => $citasDiarias->keys()->toArray(),
+            'labels' => $labels,
         ];
     }
 
