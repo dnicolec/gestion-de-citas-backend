@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(netsh interface:*)",
+      "Bash(php artisan:*)",
+      "Bash(\"/c/Users/andre/AppData/Local/herd-lite/bin/php.exe\" artisan:*)",
+      "Read(//c/Users/andre/AppData/Local//**)",
+      "Read(//c/Users/andre/AppData/Roaming//**)",
+      "Bash(where.exe php:*)",
+      "Read(//c/Program Files/Herd//**)",
+      "Read(//c/Users/andre/Herd//**)",
+      "Read(//c/Users/andre/**)"
+    ]
+  }
+}

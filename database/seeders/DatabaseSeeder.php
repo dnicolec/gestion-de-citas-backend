@@ -8,6 +8,7 @@ use App\Models\MedicalRecord;
 use App\Models\Patient;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,6 +16,28 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call(RolesAndPermissionsSeeder::class);
+
+        // Usuarios de prueba con credenciales conocidas
+        $adminTest = User::factory()->admin()->create([
+            'name'     => 'Admin Test',
+            'email'    => 'admin@test.com',
+            'password' => Hash::make('password'),
+        ]);
+        $adminTest->assignRole('admin');
+
+        $medicoTest = User::factory()->medico()->create([
+            'name'     => 'Medico Test',
+            'email'    => 'medico@test.com',
+            'password' => Hash::make('password'),
+        ]);
+        $medicoTest->assignRole('medico');
+
+        $asistenteTest = User::factory()->asistente()->create([
+            'name'     => 'Asistente Test',
+            'email'    => 'asistente@test.com',
+            'password' => Hash::make('password'),
+        ]);
+        $asistenteTest->assignRole('asistente');
 
         //Usuarios: 3 admin, 8 médicos, 12 asistentes = 23 total
         $admins    = User::factory(3)->admin()->create();

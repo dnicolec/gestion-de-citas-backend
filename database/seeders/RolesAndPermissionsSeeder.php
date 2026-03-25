@@ -16,21 +16,21 @@ class RolesAndPermissionsSeeder extends Seeder
     {
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        Permission::create(['name' => 'editar expediente']);
-        Permission::create(['name' => 'eliminar registros']);
-        Permission::create(['name' => 'gestionar usuarios']);
-        Permission::create(['name' => 'ver agenda propia']);
-        Permission::create(['name' => 'ver todas las citas']);
-        Permission::create(['name' => 'crear pacientes']);
-        Permission::create(['name' => 'gestionar citas']);
+        Permission::firstOrCreate(['name' => 'editar expediente']);
+        Permission::firstOrCreate(['name' => 'eliminar registros']);
+        Permission::firstOrCreate(['name' => 'gestionar usuarios']);
+        Permission::firstOrCreate(['name' => 'ver agenda propia']);
+        Permission::firstOrCreate(['name' => 'ver todas las citas']);
+        Permission::firstOrCreate(['name' => 'crear pacientes']);
+        Permission::firstOrCreate(['name' => 'gestionar citas']);
 
-        $admin = Role::create(['name' => 'admin']);
+        $admin = Role::firstOrCreate(['name' => 'admin']);
         $admin->givePermissionTo(Permission::all());
 
-        $medico = Role::create(['name' => 'medico']);
+        $medico = Role::firstOrCreate(['name' => 'medico']);
         $medico->givePermissionTo(['editar expediente', 'ver agenda propia']);
 
-        $asistente = Role::create(['name' => 'asistente']);
+        $asistente = Role::firstOrCreate(['name' => 'asistente']);
         $asistente->givePermissionTo(['ver todas las citas', 'crear pacientes', 'gestionar citas']);
     }
 }

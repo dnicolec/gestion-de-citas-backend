@@ -13,7 +13,11 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
+<<<<<<< Updated upstream
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
+=======
+            'role'       => \Spatie\Permission\Middleware\RoleMiddleware::class,
+>>>>>>> Stashed changes
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
         ]);
